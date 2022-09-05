@@ -1,0 +1,112 @@
+package com.digitalchameleon.jobportal.modal;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "job_app_id", "freelancer_id" }))
+public class JobApplication implements Serializable {
+
+	private static final long serialVersionUID = -3361518011946574802L;
+
+	@Id
+	@Column(name = "job_app_id", updatable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "job_app_seq")
+	@SequenceGenerator(name = "job_app_seq", sequenceName = "job_app_seq", allocationSize = 1)
+	private Long id;
+
+	@ManyToOne(targetEntity = Job.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JoinColumn(name = "job_id")
+	private Job job;
+
+	@ManyToOne(targetEntity = Freelancer.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH })
+	@JoinColumn(name = "freelancer_id")
+	private Freelancer freelancer;
+
+	private LocalDateTime appliedDate = LocalDateTime.now();
+
+	private String coverLetter;
+
+	public JobApplication() {
+		super();
+
+	}
+
+	public JobApplication(Long id, Job job, Freelancer freelancer, LocalDateTime appliedDate, String coverLetter) {
+		super();
+		this.id = id;
+		this.job = job;
+		this.freelancer = freelancer;
+		this.appliedDate = appliedDate;
+		this.coverLetter = coverLetter;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
+	public Freelancer getFreelancer() {
+		return freelancer;
+	}
+
+	public void setFreelancer(Freelancer freelancer) {
+		this.freelancer = freelancer;
+	}
+
+	public LocalDateTime getAppliedDate() {
+		return appliedDate;
+	}
+
+	public void setAppliedDate(LocalDateTime appliedDate) {
+		this.appliedDate = appliedDate;
+	}
+
+	public String getCoverLetter() {
+		return coverLetter;
+	}
+
+	public void setCoverLetter(String coverLetter) {
+		this.coverLetter = coverLetter;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "JobApplication [id=" + id + ", job=" + job + ", freelancer=" + freelancer + ", appliedDate="
+				+ appliedDate + ", coverLetter=" + coverLetter + "]";
+	}
+
+}

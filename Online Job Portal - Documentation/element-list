@@ -1,0 +1,10 @@
+com.digitalchameleon.jobportal
+com.digitalchameleon.jobportal.config
+com.digitalchameleon.jobportal.controller
+com.digitalchameleon.jobportal.dao
+com.digitalchameleon.jobportal.dto
+com.digitalchameleon.jobportal.expection
+com.digitalchameleon.jobportal.modal
+com.digitalchameleon.jobportal.resources
+com.digitalchameleon.jobportal.service
+com.digitalchameleon.jobportal.service.impl

@@ -176,7 +176,7 @@
 							<tr>
 								<td>${job.getJobId()}</td>
 								<td><c:choose>
-										<c:when test="job.getJobStatus()">
+										<c:when test="job.isJobStatus()">
 								Null
 								</c:when>
 										<c:otherwise>${job.getFreelancerUName()}
@@ -188,7 +188,7 @@
 								<td>${job.getJobTitle()}</td>
 								<td>${job.getJobDescription()}</td>
 								<td>${job.getPostedDate()}</td>
-								<td>${job.getJobStatus()}</td>
+								<td>${job.isJobStatus()}</td>
 
 							</tr>
 						</c:forEach>
